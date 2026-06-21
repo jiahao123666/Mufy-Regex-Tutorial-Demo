@@ -1,0 +1,1431 @@
+```html
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>创建您的 Google 账号</title>
+    <style>
+        :root {
+            --google-blue: #1a73e8;
+            --google-blue-hover: #1557b0;
+            --google-blue-active: #0d47a1;
+            --google-gray: #5f6368;
+            --google-light-gray: #dadce0;
+            --google-bg: #f8f9fa;
+            --google-white: #ffffff;
+            --google-red: #d93025;
+            --google-green: #188038;
+            --border-color: #dadce0;
+            --input-bg: #fff;
+            --shadow-sm: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+            --shadow-md: 0 2px 6px 2px rgba(60, 64, 67, 0.15), 0 1px 2px rgba(60, 64, 67, 0.3);
+            --shadow-lg: 0 4px 12px rgba(60, 64, 67, 0.25), 0 2px 4px rgba(60, 64, 67, 0.2);
+            --radius: 4px;
+            --radius-lg: 8px;
+            --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Google Sans', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            background: var(--google-bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* 主容器 */
+        .register-container {
+            background: var(--google-white);
+            border-radius: 28px;
+            padding: 48px 40px 36px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+            animation: containerIn 0.5s ease-out;
+        }
+
+        @keyframes containerIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.97);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* 顶部 logo 区域 */
+        .header {
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .google-logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 2px;
+            margin-bottom: 10px;
+            text-decoration: none;
+        }
+
+        .google-logo-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1px;
+        }
+
+        .logo-letter {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -2px;
+            line-height: 1;
+        }
+        .logo-letter:nth-child(1) {
+            color: #4285F4;
+        }
+        .logo-letter:nth-child(2) {
+            color: #EA4335;
+        }
+        .logo-letter:nth-child(3) {
+            color: #FBBC05;
+        }
+        .logo-letter:nth-child(4) {
+            color: #4285F4;
+        }
+        .logo-letter:nth-child(5) {
+            color: #34A853;
+        }
+        .logo-letter:nth-child(6) {
+            color: #EA4335;
+        }
+
+        .header h1 {
+            font-size: 26px;
+            font-weight: 400;
+            color: #202124;
+            letter-spacing: 0;
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        .header .subtitle {
+            font-size: 16px;
+            color: #202124;
+            margin-top: 4px;
+            font-weight: 400;
+        }
+
+        /* 步骤指示器 */
+        .step-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin: 20px 0 28px;
+        }
+
+        .step-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--google-light-gray);
+            transition: all var(--transition);
+        }
+        .step-dot.active {
+            background: var(--google-blue);
+            width: 28px;
+            border-radius: 12px;
+        }
+        .step-dot.completed {
+            background: var(--google-blue);
+            opacity: 0.6;
+        }
+
+        .step-line {
+            width: 28px;
+            height: 2px;
+            background: var(--google-light-gray);
+            border-radius: 1px;
+            transition: all var(--transition);
+        }
+        .step-line.completed {
+            background: var(--google-blue);
+            opacity: 0.6;
+        }
+
+        /* 步骤面板 */
+        .step-panel {
+            display: none;
+            animation: slideIn 0.35s ease-out;
+        }
+        .step-panel.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        @keyframes slideInReverse {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        .step-panel.slide-reverse {
+            animation: slideInReverse 0.35s ease-out;
+        }
+
+        /* 表单行 */
+        .form-row {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+        .form-row .input-group {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        /* 输入组 */
+        .input-group {
+            position: relative;
+            margin-bottom: 18px;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            height: 54px;
+            padding: 22px 14px 8px;
+            font-size: 16px;
+            font-family: inherit;
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius);
+            background: var(--input-bg);
+            color: #202124;
+            outline: none;
+            transition: all var(--transition);
+            cursor: text;
+            letter-spacing: 0.2px;
+        }
+
+        .input-group input:hover,
+        .input-group select:hover {
+            border-color: #9aa0a6;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            border-color: var(--google-blue);
+            border-width: 2px;
+            box-shadow: 0 0 0 1px var(--google-blue);
+        }
+
+        .input-group input.error {
+            border-color: var(--google-red);
+            border-width: 2px;
+            box-shadow: 0 0 0 1px var(--google-red);
+        }
+
+        .input-group label {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+            color: #80868b;
+            pointer-events: none;
+            transition: all var(--transition);
+            background: transparent;
+            padding: 0 2px;
+            letter-spacing: 0.2px;
+        }
+
+        .input-group input:focus+label,
+        .input-group input:not(:placeholder-shown)+label,
+        .input-group.filled label {
+            top: 12px;
+            font-size: 12px;
+            color: var(--google-blue);
+            transform: translateY(0);
+        }
+
+        .input-group input.error+label {
+            color: var(--google-red);
+        }
+        .input-group input:not(:placeholder-shown):not(:focus)+label {
+            color: #80868b;
+        }
+
+        /* 占位符隐藏技巧 */
+        .input-group input::placeholder {
+            color: transparent;
+            opacity: 0;
+        }
+        .input-group input:focus::placeholder {
+            color: #bdc1c6;
+            opacity: 1;
+            font-size: 14px;
+        }
+
+        /* 邮箱后缀 */
+        .email-suffix {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+            color: #5f6368;
+            pointer-events: none;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+        .input-group.email-field input {
+            padding-right: 130px;
+        }
+
+        /* 建议邮箱列表 */
+        .suggestions-box {
+            background: #fff;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            padding: 8px 0;
+            margin-top: 4px;
+            display: none;
+            border: 1px solid #e8eaed;
+        }
+        .suggestions-box.show {
+            display: block;
+            animation: fadeDown 0.2s ease-out;
+        }
+        @keyframes fadeDown {
+            from {
+                opacity: 0;
+                transform: translateY(-8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .suggestion-item {
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #202124;
+            transition: background var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            letter-spacing: 0.2px;
+        }
+        .suggestion-item:hover {
+            background: #f1f3f4;
+        }
+        .suggestion-item .sug-email {
+            font-weight: 500;
+            color: #1a73e8;
+        }
+        .suggestion-item .sug-badge {
+            font-size: 11px;
+            background: #e8f0fe;
+            color: #1a73e8;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+
+        /* 生日选择 */
+        .birthday-row {
+            display: flex;
+            gap: 12px;
+        }
+        .birthday-row .input-group {
+            flex: 1;
+            min-width: 0;
+        }
+        .input-group select {
+            appearance: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M6 8L1 3h10z' fill='%235f6368'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            padding-right: 32px;
+        }
+        .input-group select:focus {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M6 8L1 3h10z' fill='%231a73e8'/%3E%3C/svg%3E");
+        }
+
+        /* 性别选择 */
+        .gender-options {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .gender-chip {
+            flex: 1;
+            min-width: 90px;
+            padding: 12px 16px;
+            border: 1.5px solid var(--border-color);
+            border-radius: 24px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 14px;
+            color: #202124;
+            transition: all var(--transition);
+            background: #fff;
+            user-select: none;
+            letter-spacing: 0.3px;
+        }
+        .gender-chip:hover {
+            border-color: #9aa0a6;
+            background: #fafafa;
+        }
+        .gender-chip.selected {
+            border-color: var(--google-blue);
+            background: #e8f0fe;
+            color: var(--google-blue);
+            font-weight: 500;
+        }
+
+        /* 密码强度条 */
+        .password-strength {
+            margin-top: 6px;
+            height: 4px;
+            border-radius: 2px;
+            background: #e8eaed;
+            overflow: hidden;
+            transition: all var(--transition);
+        }
+        .password-strength-bar {
+            height: 100%;
+            border-radius: 2px;
+            transition: all 0.4s ease;
+            width: 0;
+        }
+        .strength-weak {
+            background: #d93025;
+            width: 25%;
+        }
+        .strength-fair {
+            background: #f9ab00;
+            width: 50%;
+        }
+        .strength-good {
+            background: #f9ab00;
+            width: 75%;
+        }
+        .strength-strong {
+            background: #188038;
+            width: 100%;
+        }
+        .strength-text {
+            font-size: 12px;
+            margin-top: 4px;
+            color: #5f6368;
+            letter-spacing: 0.2px;
+        }
+
+        /* 复选框 */
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin: 16px 0;
+            cursor: pointer;
+        }
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-top: 2px;
+            accent-color: var(--google-blue);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .checkbox-group label {
+            font-size: 13px;
+            color: #5f6368;
+            cursor: pointer;
+            line-height: 1.5;
+            letter-spacing: 0.15px;
+        }
+        .checkbox-group label a {
+            color: var(--google-blue);
+            text-decoration: none;
+        }
+        .checkbox-group label a:hover {
+            text-decoration: underline;
+        }
+
+        /* 错误提示 */
+        .error-message {
+            font-size: 12px;
+            color: var(--google-red);
+            margin-top: 4px;
+            display: none;
+            align-items: center;
+            gap: 6px;
+            letter-spacing: 0.2px;
+        }
+        .error-message.show {
+            display: flex;
+            animation: fadeDown 0.2s ease-out;
+        }
+        .error-icon {
+            font-size: 16px;
+        }
+
+        /* 信息提示 */
+        .info-text {
+            font-size: 12px;
+            color: #5f6368;
+            margin-top: 4px;
+            letter-spacing: 0.15px;
+            line-height: 1.4;
+        }
+        .info-text a {
+            color: var(--google-blue);
+            text-decoration: none;
+        }
+        .info-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* 按钮 */
+        .btn-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 28px;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 12px 28px;
+            font-size: 14px;
+            font-weight: 500;
+            border: none;
+            border-radius: 24px;
+            cursor: pointer;
+            transition: all var(--transition);
+            letter-spacing: 0.3px;
+            font-family: inherit;
+            white-space: nowrap;
+            text-align: center;
+        }
+        .btn:active {
+            transform: scale(0.96);
+        }
+
+        .btn-primary {
+            background: var(--google-blue);
+            color: #fff;
+            box-shadow: 0 1px 3px rgba(26, 115, 232, 0.3);
+        }
+        .btn-primary:hover {
+            background: var(--google-blue-hover);
+            box-shadow: 0 2px 6px rgba(26, 115, 232, 0.4);
+        }
+        .btn-primary:active {
+            background: var(--google-blue-active);
+            box-shadow: 0 1px 2px rgba(26, 115, 232, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--google-blue);
+            font-weight: 500;
+            padding: 12px 16px;
+        }
+        .btn-secondary:hover {
+            background: #f0f6ff;
+        }
+        .btn-secondary:active {
+            background: #e0ecfd;
+        }
+
+        /* 底部 */
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 32px;
+            font-size: 12px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .footer a {
+            color: #5f6368;
+            text-decoration: none;
+            letter-spacing: 0.15px;
+            transition: color var(--transition);
+        }
+        .footer a:hover {
+            color: #202124;
+            text-decoration: underline;
+        }
+        .footer .login-link {
+            color: var(--google-blue);
+            font-weight: 500;
+        }
+
+        /* 响应式 */
+        @media (max-width: 480px) {
+            .register-container {
+                padding: 32px 20px 24px;
+                border-radius: 20px;
+            }
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            .birthday-row {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            .btn-row {
+                flex-direction: column-reverse;
+                gap: 8px;
+            }
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+            .header h1 {
+                font-size: 22px;
+            }
+            .btn-secondary {
+                order: 2;
+            }
+            .btn-primary {
+                order: 1;
+            }
+        }
+
+        /* 成功提示弹窗 */
+        .success-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeIn 0.3s ease-out;
+            display: none;
+        }
+        .success-overlay.show {
+            display: flex;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        .success-modal {
+            background: #fff;
+            border-radius: 20px;
+            padding: 40px 32px;
+            text-align: center;
+            max-width: 380px;
+            width: 90%;
+            box-shadow: var(--shadow-lg);
+            animation: popIn 0.4s ease-out;
+        }
+        @keyframes popIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        .success-icon {
+            width: 64px;
+            height: 64px;
+            background: #e6f4ea;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 32px;
+        }
+        .success-modal h2 {
+            font-size: 22px;
+            color: #202124;
+            margin-bottom: 8px;
+            font-weight: 400;
+        }
+        .success-modal p {
+            font-size: 14px;
+            color: #5f6368;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        .success-modal .btn {
+            width: 100%;
+            padding: 14px 28px;
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="register-container" id="registerContainer">
+        <!-- 头部 -->
+        <div class="header">
+            <div class="google-logo">
+                <span class="google-logo-icon">
+                    <span class="logo-letter">G</span>
+                    <span class="logo-letter">o</span>
+                    <span class="logo-letter">o</span>
+                    <span class="logo-letter">g</span>
+                    <span class="logo-letter">l</span>
+                    <span class="logo-letter">e</span>
+                </span>
+            </div>
+            <h1 id="stepTitle">创建您的 Google 账号</h1>
+            <p class="subtitle" id="stepSubtitle">输入您的姓名</p>
+        </div>
+
+        <!-- 步骤指示器 -->
+        <div class="step-indicator">
+            <span class="step-dot active" data-step="1"></span>
+            <span class="step-line" data-line="1"></span>
+            <span class="step-dot" data-step="2"></span>
+            <span class="step-line" data-line="2"></span>
+            <span class="step-dot" data-step="3"></span>
+            <span class="step-line" data-line="3"></span>
+            <span class="step-dot" data-step="4"></span>
+        </div>
+
+        <!-- 步骤 1：姓名 -->
+        <div class="step-panel active" id="step1">
+            <form autocomplete="off" novalidate>
+                <div class="form-row">
+                    <div class="input-group" id="firstNameGroup">
+                        <input type="text" id="firstName" placeholder=" " autocomplete="given-name" required>
+                        <label for="firstName">名字</label>
+                        <span class="error-message" id="firstNameError">
+                            <span class="error-icon">⚠️</span> 请输入名字
+                        </span>
+                    </div>
+                    <div class="input-group" id="lastNameGroup">
+                        <input type="text" id="lastName" placeholder=" " autocomplete="family-name" required>
+                        <label for="lastName">姓氏</label>
+                        <span class="error-message" id="lastNameError">
+                            <span class="error-icon">⚠️</span> 请输入姓氏
+                        </span>
+                    </div>
+                </div>
+            </form>
+            <div class="btn-row">
+                <span></span>
+                <button class="btn btn-primary" onclick="nextStep(1)" id="btnStep1">
+                    下一步
+                </button>
+            </div>
+        </div>
+
+        <!-- 步骤 2：生日和性别 -->
+        <div class="step-panel" id="step2">
+            <form autocomplete="off" novalidate>
+                <label style="font-size:14px;color:#202124;display:block;margin-bottom:8px;font-weight:500;">出生日期</label>
+                <div class="birthday-row">
+                    <div class="input-group filled" id="monthGroup">
+                        <select id="birthMonth" required>
+                            <option value="" disabled selected></option>
+                            <option value="1">1月</option>
+                            <option value="2">2月</option>
+                            <option value="3">3月</option>
+                            <option value="4">4月</option>
+                            <option value="5">5月</option>
+                            <option value="6">6月</option>
+                            <option value="7">7月</option>
+                            <option value="8">8月</option>
+                            <option value="9">9月</option>
+                            <option value="10">10月</option>
+                            <option value="11">11月</option>
+                            <option value="12">12月</option>
+                        </select>
+                        <label for="birthMonth">月份</label>
+                    </div>
+                    <div class="input-group filled" id="dayGroup">
+                        <input type="number" id="birthDay" placeholder=" " min="1" max="31" required>
+                        <label for="birthDay">日</label>
+                    </div>
+                    <div class="input-group filled" id="yearGroup">
+                        <input type="number" id="birthYear" placeholder=" " min="1900" max="2026" required>
+                        <label for="birthYear">年</label>
+                    </div>
+                </div>
+                <span class="error-message" id="birthdayError" style="margin-top:-6px;">
+                    <span class="error-icon">⚠️</span> 请输入有效的出生日期
+                </span>
+                <p class="info-text">您的生日不会公开显示。</p>
+
+                <label style="font-size:14px;color:#202124;display:block;margin:18px 0 8px;font-weight:500;">性别</label>
+                <div class="gender-options" id="genderOptions">
+                    <div class="gender-chip" data-gender="female" onclick="selectGender(this)">女性</div>
+                    <div class="gender-chip" data-gender="male" onclick="selectGender(this)">男性</div>
+                    <div class="gender-chip" data-gender="other" onclick="selectGender(this)">其他</div>
+                    <div class="gender-chip" data-gender="prefer-not" onclick="selectGender(this)">不愿透露</div>
+                </div>
+                <input type="hidden" id="selectedGender" value="">
+                <span class="error-message" id="genderError">
+                    <span class="error-icon">⚠️</span> 请选择性别
+                </span>
+            </form>
+            <div class="btn-row">
+                <button class="btn btn-secondary" onclick="prevStep(2)">返回</button>
+                <button class="btn btn-primary" onclick="nextStep(2)" id="btnStep2">
+                    下一步
+                </button>
+            </div>
+        </div>
+
+        <!-- 步骤 3：选择邮箱地址 -->
+        <div class="step-panel" id="step3">
+            <form autocomplete="off" novalidate>
+                <div class="input-group email-field" id="emailGroup">
+                    <input type="text" id="emailUsername" placeholder=" " autocomplete="off" required>
+                    <label for="emailUsername">创建 Gmail 地址</label>
+                    <span class="email-suffix">@gmail.com</span>
+                    <span class="error-message" id="emailError">
+                        <span class="error-icon">⚠️</span> <span id="emailErrorText">请输入有效的邮箱用户名</span>
+                    </span>
+                </div>
+                <p class="info-text">您可以使用字母、数字和句点。用户名长度需在 6-30 个字符之间。</p>
+
+                <!-- 建议邮箱 -->
+                <div class="suggestions-box" id="suggestionsBox">
+                    <div style="padding:8px 20px;font-size:12px;color:#5f6368;font-weight:500;">建议的邮箱地址：</div>
+                    <div class="suggestion-item" data-email="" onclick="selectSuggestion(this)" style="display:none;" id="sugTemplate">
+                        <span class="sug-email"></span>@gmail.com
+                        <span class="sug-badge">推荐</span>
+                    </div>
+                </div>
+            </form>
+            <div class="btn-row">
+                <button class="btn btn-secondary" onclick="prevStep(3)">返回</button>
+                <button class="btn btn-primary" onclick="nextStep(3)" id="btnStep3">
+                    下一步
+                </button>
+            </div>
+        </div>
+
+        <!-- 步骤 4：密码 -->
+        <div class="step-panel" id="step4">
+            <form autocomplete="off" novalidate>
+                <div class="input-group" id="passwordGroup">
+                    <input type="password" id="password" placeholder=" " autocomplete="new-password" required>
+                    <label for="password">密码</label>
+                    <span class="error-message" id="passwordError">
+                        <span class="error-icon">⚠️</span> <span id="passwordErrorText">密码长度至少为8个字符</span>
+                    </span>
+                </div>
+                <div class="password-strength" id="passwordStrengthBar">
+                    <div class="password-strength-bar" id="strengthFill"></div>
+                </div>
+                <p class="strength-text" id="strengthText">使用 8 个或更多字符，混合字母、数字和符号</p>
+
+                <div class="input-group" id="confirmPasswordGroup" style="margin-top:8px;">
+                    <input type="password" id="confirmPassword" placeholder=" " autocomplete="new-password" required>
+                    <label for="confirmPassword">确认密码</label>
+                    <span class="error-message" id="confirmPasswordError">
+                        <span class="error-icon">⚠️</span> 两次输入的密码不一致
+                    </span>
+                </div>
+
+                <div class="checkbox-group" onclick="toggleCheckbox()">
+                    <input type="checkbox" id="showPassword">
+                    <label for="showPassword">显示密码</label>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="agreeTerms">
+                    <label for="agreeTerms">我同意 Google 的<a href="#">服务条款</a>和<a href="#">隐私政策</a></label>
+                </div>
+                <span class="error-message" id="termsError">
+                    <span class="error-icon">⚠️</span> 请同意服务条款和隐私政策
+                </span>
+            </form>
+            <div class="btn-row">
+                <button class="btn btn-secondary" onclick="prevStep(4)">返回</button>
+                <button class="btn btn-primary" onclick="submitForm()" id="btnSubmit">
+                    创建账号
+                </button>
+            </div>
+        </div>
+
+        <!-- 底部链接 -->
+        <div class="footer">
+            <a href="#">帮助</a>
+            <a href="#">隐私权</a>
+            <a href="#">条款</a>
+            <a href="#" class="login-link">改为登录</a>
+        </div>
+    </div>
+
+    <!-- 成功弹窗 -->
+    <div class="success-overlay" id="successOverlay">
+        <div class="success-modal">
+            <div class="success-icon">✅</div>
+            <h2>账号创建成功！</h2>
+            <p id="successEmailDisplay">欢迎加入，您的 Gmail 地址已创建。</p>
+            <button class="btn btn-primary" onclick="closeSuccess()">前往 Gmail</button>
+        </div>
+    </div>
+
+    <script>
+        // ============ 全局状态 ============
+        let currentStep = 1;
+        const totalSteps = 4;
+        const formData = {
+            firstName: '',
+            lastName: '',
+            birthMonth: '',
+            birthDay: '',
+            birthYear: '',
+            gender: '',
+            email: '',
+            password: '',
+        };
+
+        // ============ DOM 引用 ============
+        const stepTitle = document.getElementById('stepTitle');
+        const stepSubtitle = document.getElementById('stepSubtitle');
+        const stepPanels = document.querySelectorAll('.step-panel');
+        const stepDots = document.querySelectorAll('.step-dot');
+        const stepLines = document.querySelectorAll('.step-line');
+        const successOverlay = document.getElementById('successOverlay');
+        const successEmailDisplay = document.getElementById('successEmailDisplay');
+
+        // 步骤标题配置
+        const stepConfig = {
+            1: { title: '创建您的 Google 账号', subtitle: '输入您的姓名' },
+            2: { title: '基本信息', subtitle: '提供您的出生日期和性别' },
+            3: { title: '选择邮箱地址', subtitle: '创建您的 Gmail 地址' },
+            4: { title: '设置密码', subtitle: '创建安全性高的密码' },
+        };
+
+        // ============ 步骤导航 ============
+        function updateStepUI() {
+            // 更新标题
+            stepTitle.textContent = stepConfig[currentStep].title;
+            stepSubtitle.textContent = stepConfig[currentStep].subtitle;
+
+            // 更新面板
+            stepPanels.forEach((panel, index) => {
+                panel.classList.remove('active', 'slide-reverse');
+                if (index + 1 === currentStep) {
+                    panel.classList.add('active');
+                }
+            });
+
+            // 更新步骤指示器
+            stepDots.forEach((dot, index) => {
+                dot.classList.remove('active', 'completed');
+                if (index + 1 === currentStep) {
+                    dot.classList.add('active');
+                } else if (index + 1 < currentStep) {
+                    dot.classList.add('completed');
+                }
+            });
+            stepLines.forEach((line, index) => {
+                if (index + 1 < currentStep) {
+                    line.classList.add('completed');
+                } else {
+                    line.classList.remove('completed');
+                }
+            });
+
+            // 滚动到顶部
+            document.getElementById('registerContainer').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function nextStep(step) {
+            if (step !== currentStep) return;
+
+            // 验证当前步骤
+            if (!validateStep(step)) return;
+
+            // 保存数据
+            saveStepData(step);
+
+            if (currentStep < totalSteps) {
+                currentStep++;
+                updateStepUI();
+                // 如果进入步骤3，生成建议邮箱
+                if (currentStep === 3) {
+                    generateSuggestions();
+                    updateEmailField();
+                }
+                // 如果进入步骤4，预填一些提示
+                if (currentStep === 4) {
+                    setTimeout(() => document.getElementById('password')?.focus(), 400);
+                }
+            }
+        }
+
+        function prevStep(step) {
+            if (step !== currentStep) return;
+            if (currentStep > 1) {
+                // 仍然保存当前步骤数据
+                saveStepData(step);
+                currentStep--;
+                // 添加反向动画
+                const panel = stepPanels[currentStep - 1];
+                panel.classList.add('slide-reverse');
+                setTimeout(() => panel.classList.remove('slide-reverse'), 350);
+                updateStepUI();
+            }
+        }
+
+        function saveStepData(step) {
+            switch (step) {
+                case 1:
+                    formData.firstName = document.getElementById('firstName').value.trim();
+                    formData.lastName = document.getElementById('lastName').value.trim();
+                    break;
+                case 2:
+                    formData.birthMonth = document.getElementById('birthMonth').value;
+                    formData.birthDay = document.getElementById('birthDay').value.trim();
+                    formData.birthYear = document.getElementById('birthYear').value.trim();
+                    formData.gender = document.getElementById('selectedGender').value;
+                    break;
+                case 3:
+                    formData.email = document.getElementById('emailUsername').value.trim();
+                    break;
+                case 4:
+                    formData.password = document.getElementById('password').value;
+                    break;
+            }
+        }
+
+        // ============ 验证逻辑 ============
+        function validateStep(step) {
+            let valid = true;
+            // 清除所有错误
+            document.querySelectorAll('.error-message').forEach(el => el.classList.remove('show'));
+            document.querySelectorAll('input.error, select.error').forEach(el => el.classList.remove('error'));
+
+            switch (step) {
+                case 1:
+                    const firstName = document.getElementById('firstName').value.trim();
+                    const lastName = document.getElementById('lastName').value.trim();
+                    if (!firstName) {
+                        showError('firstName', 'firstNameError', '请输入名字');
+                        valid = false;
+                    }
+                    if (!lastName) {
+                        showError('lastName', 'lastNameError', '请输入姓氏');
+                        valid = false;
+                    }
+                    break;
+
+                case 2:
+                    const month = document.getElementById('birthMonth').value;
+                    const day = parseInt(document.getElementById('birthDay').value.trim());
+                    const year = parseInt(document.getElementById('birthYear').value.trim());
+                    const gender = document.getElementById('selectedGender').value;
+
+                    if (!month || !day || !year) {
+                        document.getElementById('birthdayError').classList.add('show');
+                        document.getElementById('birthdayError').querySelector('span').nextSibling.textContent =
+                            ' 请填写完整的出生日期';
+                        valid = false;
+                    } else if (!isValidDate(month, day, year)) {
+                        document.getElementById('birthdayError').classList.add('show');
+                        document.getElementById('birthdayError').querySelector('span').nextSibling.textContent =
+                            ' 请输入有效的出生日期';
+                        valid = false;
+                    }
+                    if (!gender) {
+                        document.getElementById('genderError').classList.add('show');
+                        valid = false;
+                    }
+                    break;
+
+                case 3:
+                    const emailUser = document.getElementById('emailUsername').value.trim();
+                    if (!emailUser) {
+                        document.getElementById('emailErrorText').textContent = '请输入邮箱用户名';
+                        showError('emailUsername', 'emailError');
+                        valid = false;
+                    } else if (!/^[a-zA-Z0-9.]+$/.test(emailUser)) {
+                        document.getElementById('emailErrorText').textContent = '用户名只能包含字母、数字和句点';
+                        showError('emailUsername', 'emailError');
+                        valid = false;
+                    } else if (emailUser.length < 6) {
+                        document.getElementById('emailErrorText').textContent = '用户名长度至少为6个字符';
+                        showError('emailUsername', 'emailError');
+                        valid = false;
+                    } else if (emailUser.length > 30) {
+                        document.getElementById('emailErrorText').textContent = '用户名长度不能超过30个字符';
+                        showError('emailUsername', 'emailError');
+                        valid = false;
+                    } else if (emailUser.startsWith('.') || emailUser.endsWith('.')) {
+                        document.getElementById('emailErrorText').textContent = '用户名不能以句点开头或结尾';
+                        showError('emailUsername', 'emailError');
+                        valid = false;
+                    } else if (emailUser.includes('..')) {
+                        document.getElementById('emailErrorText').textContent = '用户名不能包含连续的句点';
+                        showError('emailUsername', 'emailError');
+                        valid = false;
+                    }
+                    break;
+
+                case 4:
+                    const password = document.getElementById('password').value;
+                    const confirmPassword = document.getElementById('confirmPassword').value;
+                    const agreeTerms = document.getElementById('agreeTerms').checked;
+
+                    if (!password || password.length < 8) {
+                        document.getElementById('passwordErrorText').textContent = '密码长度至少为8个字符';
+                        showError('password', 'passwordError');
+                        valid = false;
+                    }
+                    if (password !== confirmPassword) {
+                        showError('confirmPassword', 'confirmPasswordError');
+                        valid = false;
+                    }
+                    if (!agreeTerms) {
+                        document.getElementById('termsError').classList.add('show');
+                        valid = false;
+                    }
+                    break;
+            }
+            return valid;
+        }
+
+        function showError(inputId, errorId, customMsg) {
+            const input = document.getElementById(inputId);
+            const error = document.getElementById(errorId);
+            if (input) input.classList.add('error');
+            if (error) {
+                if (customMsg && error.querySelector('span')?.nextSibling) {
+                    error.querySelector('span').nextSibling.textContent = ' ' + customMsg;
+                }
+                error.classList.add('show');
+            }
+        }
+
+        function isValidDate(month, day, year) {
+            const m = parseInt(month);
+            const d = parseInt(day);
+            const y = parseInt(year);
+            if (isNaN(m) || isNaN(d) || isNaN(y)) return false;
+            if (m < 1 || m > 12 || d < 1 || d > 31 || y < 1900 || y > 2026) return false;
+            const daysInMonth = new Date(y, m, 0).getDate();
+            if (d > daysInMonth) return false;
+            const now = new Date();
+            const birthDate = new Date(y, m - 1, d);
+            if (birthDate > now) return false;
+            return true;
+        }
+
+        // ============ 性别选择 ============
+        function selectGender(chip) {
+            document.querySelectorAll('.gender-chip').forEach(c => c.classList.remove('selected'));
+            chip.classList.add('selected');
+            document.getElementById('selectedGender').value = chip.dataset.gender;
+            document.getElementById('genderError').classList.remove('show');
+        }
+
+        // ============ 邮箱建议 ============
+        function generateSuggestions() {
+            const firstName = formData.firstName.toLowerCase().replace(/[^a-z0-9]/g, '');
+            const lastName = formData.lastName.toLowerCase().replace(/[^a-z0-9]/g, '');
+            const suggestionsBox = document.getElementById('suggestionsBox');
+            const template = document.getElementById('sugTemplate');
+
+            // 清除旧建议
+            suggestionsBox.querySelectorAll('.suggestion-item:not(#sugTemplate)').forEach(el => el.remove());
+
+            if (!firstName && !lastName) {
+                suggestionsBox.classList.remove('show');
+                return;
+            }
+
+            const suggestions = [];
+            if (firstName && lastName) {
+                suggestions.push(`${firstName}.${lastName}`);
+                suggestions.push(`${lastName}.${firstName}`);
+                suggestions.push(`${firstName}${lastName.charAt(0)}`);
+                suggestions.push(`${firstName}${lastName}${Math.floor(Math.random() * 99) + 1}`);
+            } else if (firstName) {
+                suggestions.push(`${firstName}${Math.floor(Math.random() * 999) + 100}`);
+                suggestions.push(`${firstName}.official`);
+                suggestions.push(`${firstName}_mail`);
+            } else if (lastName) {
+                suggestions.push(`${lastName}${Math.floor(Math.random() * 999) + 100}`);
+                suggestions.push(`${lastName}.official`);
+            }
+
+            // 去重并限制数量
+            const uniqueSuggestions = [...new Set(suggestions)].slice(0, 5);
+
+            uniqueSuggestions.forEach((sug, index) => {
+                const clone = template.cloneNode(true);
+                clone.style.display = 'flex';
+                clone.removeAttribute('id');
+                clone.querySelector('.sug-email').textContent = sug;
+                clone.dataset.email = sug;
+                if (index === 0) {
+                    clone.querySelector('.sug-badge').style.display = 'inline';
+                } else {
+                    clone.querySelector('.sug-badge').style.display = 'none';
+                }
+                clone.onclick = function() { selectSuggestion(clone); };
+                suggestionsBox.appendChild(clone);
+            });
+
+            if (uniqueSuggestions.length > 0) {
+                suggestionsBox.classList.add('show');
+            } else {
+                suggestionsBox.classList.remove('show');
+            }
+        }
+
+        function selectSuggestion(item) {
+            const email = item.dataset.email;
+            document.getElementById('emailUsername').value = email;
+            document.getElementById('emailUsername').focus();
+            document.getElementById('suggestionsBox').classList.remove('show');
+            // 触发 filled 状态
+            document.getElementById('emailGroup').classList.add('filled');
+            clearError('emailUsername', 'emailError');
+        }
+
+        function updateEmailField() {
+            const emailInput = document.getElementById('emailUsername');
+            if (formData.email) {
+                emailInput.value = formData.email;
+                document.getElementById('emailGroup').classList.add('filled');
+            }
+        }
+
+        // ============ 密码强度 ============
+        document.addEventListener('input', function(e) {
+            if (e.target.id === 'password') {
+                updatePasswordStrength(e.target.value);
+            }
+            if (e.target.id === 'emailUsername') {
+                document.getElementById('suggestionsBox').classList.remove('show');
+                clearError('emailUsername', 'emailError');
+                if (e.target.value.trim()) {
+                    document.getElementById('emailGroup').classList.add('filled');
+                } else {
+                    document.getElementById('emailGroup').classList.remove('filled');
+                }
+            }
+            // 实时清除错误
+            if (e.target.classList.contains('error')) {
+                e.target.classList.remove('error');
+                const errorEl = e.target.parentElement.querySelector('.error-message');
+                if (errorEl) errorEl.classList.remove('show');
+            }
+        });
+
+        function updatePasswordStrength(password) {
+            const fill = document.getElementById('strengthFill');
+            const text = document.getElementById('strengthText');
+            fill.className = 'password-strength-bar';
+            let strength = 0;
+            if (password.length >= 8) strength++;
+            if (password.length >= 12) strength++;
+            if (/[A-Z]/.test(password) && /[a-z]/.test(password)) strength++;
+            if (/\d/.test(password)) strength++;
+            if (/[^A-Za-z0-9]/.test(password)) strength++;
+            if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) strength++;
+
+            if (strength <= 1 && password.length > 0) {
+                fill.classList.add('strength-weak');
+                text.textContent = '密码强度：弱 — 请添加更多字符类型';
+            } else if (strength === 2) {
+                fill.classList.add('strength-fair');
+                text.textContent = '密码强度：一般 — 建议添加数字和符号';
+            } else if (strength === 3) {
+                fill.classList.add('strength-good');
+                text.textContent = '密码强度：良好 — 可以更强一些';
+            } else if (strength >= 4) {
+                fill.classList.add('strength-strong');
+                text.textContent = '密码强度：强 ✓ — 密码安全性高';
+            } else {
+                text.textContent = '使用 8 个或更多字符，混合字母、数字和符号';
+            }
+        }
+
+        // ============ 显示密码 ============
+        function toggleCheckbox() {
+            const checkbox = document.getElementById('showPassword');
+            checkbox.checked = !checkbox.checked;
+            const type = checkbox.checked ? 'text' : 'password';
+            document.getElementById('password').type = type;
+            document.getElementById('confirmPassword').type = type;
+        }
+
+        // 让复选框的label也能触发
+        document.getElementById('showPassword')?.addEventListener('change', function() {
+            const type = this.checked ? 'text' : 'password';
+            document.getElementById('password').type = type;
+            document.getElementById('confirmPassword').type = type;
+        });
+
+        // ============ 清除错误 ============
+        function clearError(inputId, errorId) {
+            const input = document.getElementById(inputId);
+            const error = document.getElementById(errorId);
+            if (input) input.classList.remove('error');
+            if (error) error.classList.remove('show');
+        }
+
+        // ============ 提交表单 ============
+        function submitForm() {
+            if (!validateStep(4)) return;
+            saveStepData(4);
+
+            // 模拟提交
+            const btnSubmit = document.getElementById('btnSubmit');
+            btnSubmit.textContent = '正在创建...';
+            btnSubmit.disabled = true;
+            btnSubmit.style.opacity = '0.7';
+            btnSubmit.style.cursor = 'not-allowed';
+
+            setTimeout(() => {
+                // 显示成功弹窗
+                const fullEmail = formData.email + '@gmail.com';
+                successEmailDisplay.textContent = `欢迎加入，${formData.firstName}！您的 Gmail 地址 ${fullEmail} 已创建成功。`;
+                successOverlay.classList.add('show');
+                btnSubmit.textContent = '创建账号';
+                btnSubmit.disabled = false;
+                btnSubmit.style.opacity = '1';
+                btnSubmit.style.cursor = 'pointer';
+            }, 1500);
+        }
+
+        function closeSuccess() {
+            successOverlay.classList.remove('show');
+            // 重置表单
+            resetForm();
+        }
+
+        function resetForm() {
+            currentStep = 1;
+            document.getElementById('firstName').value = '';
+            document.getElementById('lastName').value = '';
+            document.getElementById('birthMonth').value = '';
+            document.getElementById('birthDay').value = '';
+            document.getElementById('birthYear').value = '';
+            document.getElementById('selectedGender').value = '';
+            document.getElementById('emailUsername').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('confirmPassword').value = '';
+            document.getElementById('showPassword').checked = false;
+            document.getElementById('agreeTerms').checked = false;
+            document.getElementById('suggestionsBox').classList.remove('show');
+            document.querySelectorAll('.gender-chip').forEach(c => c.classList.remove('selected'));
+            document.querySelectorAll('.error-message').forEach(el => el.classList.remove('show'));
+            document.querySelectorAll('input.error, select.error').forEach(el => el.classList.remove('error'));
+            document.getElementById('strengthFill').className = 'password-strength-bar';
+            document.getElementById('strengthText').textContent = '使用 8 个或更多字符，混合字母、数字和符号';
+            document.getElementById('emailGroup').classList.remove('filled');
+            document.getElementById('password').type = 'password';
+            document.getElementById('confirmPassword').type = 'password';
+            updateStepUI();
+            document.getElementById('registerContainer').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // ============ 初始化 ============
+        function init() {
+            updateStepUI();
+            // 预填生日年份选择器
+            const yearInput = document.getElementById('birthYear');
+            if (yearInput) {
+                yearInput.setAttribute('max', new Date().getFullYear());
+            }
+            // 初始化时聚焦到名字输入框
+            setTimeout(() => {
+                document.getElementById('firstName')?.focus();
+            }, 500);
+        }
+
+        // ============ 键盘导航 ============
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                switch (currentStep) {
+                    case 1:
+                        nextStep(1);
+                        break;
+                    case 2:
+                        nextStep(2);
+                        break;
+                    case 3:
+                        nextStep(3);
+                        break;
+                    case 4:
+                        submitForm();
+                        break;
+                }
+            }
+        });
+
+        // 点击弹窗外部关闭（可选）
+        successOverlay.addEventListener('click', function(e) {
+            if (e.target === successOverlay) {
+                closeSuccess();
+            }
+        });
+
+        // 点击建议框外部关闭
+        document.addEventListener('click', function(e) {
+            const suggestionsBox = document.getElementById('suggestionsBox');
+            const emailInput = document.getElementById('emailUsername');
+            if (suggestionsBox && emailInput && !suggestionsBox.contains(e.target) && e.target !== emailInput) {
+                suggestionsBox.classList.remove('show');
+            }
+        });
+
+        // 启动
+        init();
+    </script>
+</body>
+</html>
+```
