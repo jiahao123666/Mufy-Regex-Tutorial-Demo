@@ -2,6 +2,8 @@
 Complete Practical Source Code &amp; Zero-Basics English Tutorial for Mufy AI Rendering Regular Expressions, Kickstart Your New Exploration Journey.
 Title: After some debugging, I'm preparing to open-source a project on GitHub. Please help me translate the following content into English.
 
+[中文介绍](https://github.com/jiahao123666/mufy-)
+
 ---
 
 README Homepage Introduction
