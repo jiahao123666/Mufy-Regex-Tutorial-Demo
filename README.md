@@ -67,5 +67,5 @@ This achieves rendering of two regexes at the same time! However, if you can use
 
 I recommend this approach, as it has a higher success rate.
 During these processes, we notice—what if we upload an HTML that contains a URL and then open that URL? I can tell you clearly: it will navigate to the official website, and you have essentially opened a multi‑browser page inside Mufy's container! See the demonstration image below.
-<img src="images/phone-demo.png" width="680" alt="picture">
+<img src="https://github.com/jiahao123666/Mufy-Regex-Tutorial-Demo/blob/main/Screenshot_20260621_172739.jpg?raw=true" width="650" alt="PICTURE">
 ---
